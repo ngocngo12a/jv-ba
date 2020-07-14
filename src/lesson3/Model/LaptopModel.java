@@ -1,4 +1,4 @@
-package lesson3;
+package lesson3.Model;
 import java.sql.Timestamp;
 public class LaptopModel {
     private int id;

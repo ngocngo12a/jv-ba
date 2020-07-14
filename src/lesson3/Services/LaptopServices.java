@@ -1,10 +1,14 @@
-package lesson3;
+package lesson3.Services;
+
+import lesson3.Model.Counter;
+import lesson3.Model.LaptopModel;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.sql.DriverManager.getConnection;
 
 
@@ -27,7 +31,7 @@ public class LaptopServices {
     public LaptopServices(Connection connection) {
         this.connection = connection;
     }
-    public List<LaptopModel> searchLaptop( String maker, Float fromPrice, Float toPrice, String cpu, String ram, String card, Float screeenSize) {
+    public List<LaptopModel> searchLaptop(String maker, Float fromPrice, Float toPrice, String cpu, String ram, String card, Float screeenSize) {
         String sql = "SELECT * FROM laptop WHERE TRUE ";
         if (maker != null) {
             sql += " AND maker = '" + maker + "'";
@@ -53,7 +57,27 @@ public class LaptopServices {
 
         return queryDB(sql);
     }
+    public List<Counter> GetCounterByMaker(){
+        try {
+            List<Counter> counters = new ArrayList<>();
 
+            String sql = "SELECT maker,COUNT(*) AS quantity FROM laptop GROUP BY maker ORDER BY quantity DESC ";
+            Statement statement = getConnections().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                Counter counter = new Counter(
+                        resultSet.getString(1),resultSet.getInt(2)
+                );
+                counters.add(counter);
+            }
+            return counters;
+        }catch (Exception e){
+            System.out.println("" +e);
+            return null;
+        }
+
+
+    }
     public List<LaptopModel> queryDB(String sql) {
         try {
             List<LaptopModel> laptopModels = new ArrayList<>();
