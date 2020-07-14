@@ -2,6 +2,7 @@ package lesson3;
 
 import lesson3.Model.Counter;
 import lesson3.Model.LaptopModel;
+import lesson3.Model.Statistic;
 import lesson3.Services.LaptopServices;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Application {
         System.out.println("-----------CHỨC NĂNG----------");
         System.out.println("Bấm phím 1 để tìm kiếm laptop");
         System.out.println("Bấm phím 2 để thống kê số lượng máy tính giảm  dần  ");
+        System.out.println("Bam phim 3 để thống kê số lượng, số tiền bán được của mỗi hãng");
         do {
             System.out.println("\nNhập lựa chọn:");
             int option = scanner.nextInt();
@@ -34,6 +36,7 @@ public class Application {
                             System.out.println(laptopModel.getName());
                         }
                     }
+                    break;
                 case 2:
                     List <Counter> counters = new ArrayList<>();
                     counters = laptopService.GetCounterByMaker();
@@ -44,6 +47,19 @@ public class Application {
                             System.out.println(laptopModel.getMaker() +" "+ laptopModel.getQuantity());
                         }
                     }
+                    break;
+                case 3 :
+                    List<Statistic> statistics = new ArrayList<>();
+                    statistics = laptopService.getStatisticByMaker();
+                    if (statistics == null || statistics.isEmpty()) {
+                        System.out.println("Không tìm thấy thông tin sản phẩm.");
+                    } else {
+                        for (Statistic laptopModel : statistics) {
+                            System.out.println(laptopModel.toString());
+                        }
+                    }
+                    break;
+
             }
         }while(true);
     }
