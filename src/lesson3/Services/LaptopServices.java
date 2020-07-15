@@ -82,15 +82,14 @@ public class LaptopServices {
     public List<Statistic>  getStatisticByMaker(){
         try{
             List<Statistic> statistics = new ArrayList<>();
-            String sql = "SELECT maker, sum(sold) AS sold, sum(price) AS totalMoney FROM store_cms_plusplus.laptop GROUP BY maker ORDER BY sold DESC";
+            String sql = "SELECT maker, sum(sold) AS sold, sum(price*sold) AS totalMoney FROM store_cms_plusplus.laptop GROUP BY maker ORDER BY sold DESC";
             Statement statement = getConnections().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 Statistic statistic = new Statistic();
                 statistic.setMaker(resultSet.getString(1));
                 statistic.setSold(resultSet.getInt(2));
-                int totalMoney = resultSet.getInt(2)*resultSet.getInt(3);
-                statistic.setTotalMoney(totalMoney);
+                statistic.setTotalMoney(resultSet.getInt(3));
                 statistics.add(statistic);
             }
             return statistics;
