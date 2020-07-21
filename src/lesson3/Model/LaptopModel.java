@@ -20,6 +20,26 @@ public class LaptopModel {
     public LaptopModel() {
     }
 
+    @Override
+    public String toString() {
+        return "LaptopModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", maker='" + maker + '\'' +
+                ", type='" + type + '\'' +
+                ", ram='" + ram + '\'' +
+                ", cpu='" + cpu + '\'' +
+                ", ssd='" + ssd + '\'' +
+                ", hdd='" + hdd + '\'' +
+                ", price=" + price +
+                ", card='" + card + '\'' +
+                ", screenResolution='" + screenResolution + '\'' +
+                ", screenSize=" + screenSize +
+                ", sold=" + sold +
+                '}';
+    }
+
     public LaptopModel(int id, String name, String url, String maker, String type, String ram, String cpu, String ssd, String hdd, Float price, String card, String screenResolution, Float screenSize, int sold, Timestamp createdTimestamp, Timestamp lastUpdatedTimestamp) {
         this.id = id;
         this.name = name;

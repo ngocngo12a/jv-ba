@@ -19,6 +19,7 @@ public class Application {
         System.out.println("Bấm phím 1 để tìm kiếm laptop");
         System.out.println("Bấm phím 2 để thống kê số lượng máy tính giảm  dần  ");
         System.out.println("Bam phim 3 để thống kê số lượng, số tiền bán được của mỗi hãng");
+        System.out.println("Bấm phím 4 để tìm laptop bán chạy nhất ");
         do {
             System.out.println("\nNhập lựa chọn:");
             int option = scanner.nextInt();
@@ -27,7 +28,7 @@ public class Application {
                 case 1:
 
                     List<LaptopModel> laptopModels = new ArrayList<>();
-                    laptopModels = laptopService.searchLaptop("ACER",15000000.0f,20000000.0f,null,null,null,null);
+                    laptopModels = laptopService.searchLaptop("ACER", 15000000.0f, 20000000.0f, null, null, null, null);
 
                     if (laptopModels == null || laptopModels.isEmpty()) {
                         System.out.println("Không tìm thấy thông tin sản phẩm.");
@@ -38,17 +39,17 @@ public class Application {
                     }
                     break;
                 case 2:
-                    List <Counter> counters = new ArrayList<>();
+                    List<Counter> counters = new ArrayList<>();
                     counters = laptopService.GetCounterByMaker();
                     if (counters == null || counters.isEmpty()) {
                         System.out.println("Không tìm thấy thông tin sản phẩm.");
                     } else {
                         for (Counter laptopModel : counters) {
-                            System.out.println(laptopModel.getMaker() +" "+ laptopModel.getQuantity());
+                            System.out.println(laptopModel.getMaker() + " " + laptopModel.getQuantity());
                         }
                     }
                     break;
-                case 3 :
+                case 3:
                     List<Statistic> statistics = new ArrayList<>();
                     statistics = laptopService.getStatisticByMaker();
                     if (statistics == null || statistics.isEmpty()) {
@@ -59,8 +60,18 @@ public class Application {
                         }
                     }
                     break;
-
+                case 4:
+                    List<LaptopModel> laptopModels1 = new ArrayList<>();
+                    laptopModels1 = laptopService.findBySold();
+                    if (laptopModels1 == null || laptopModels1.isEmpty()) {
+                        System.out.println("Không tìm thấy sản phẩm ");
+                    } else {
+                        for (LaptopModel laptopModel : laptopModels1) {
+                            System.out.println(laptopModel.toString());
+                        }
+                    }
+                    break;
             }
-        }while(true);
+        }   while (true) ;
     }
 }

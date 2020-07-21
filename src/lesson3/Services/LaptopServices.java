@@ -98,6 +98,40 @@ public class LaptopServices {
             return null;
         }
     }
+    public List<LaptopModel> findBySold(){
+        try {
+
+            String sql = "SELECT * FROM laptop ORDER BY sold DESC LIMIT 1 ";
+            List <LaptopModel> laptopModels = new ArrayList<>();
+            Statement statement = getConnections().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()) {
+                LaptopModel laptopModel = new LaptopModel(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7),
+                        resultSet.getString(8),
+                        resultSet.getString(9),
+                        resultSet.getFloat(10),
+                        resultSet.getString(11),
+                        resultSet.getString(12),
+                        resultSet.getFloat(13),
+                        resultSet.getInt(14),
+                        resultSet.getTimestamp(15),
+                        resultSet.getTimestamp(16)
+                );
+                laptopModels.add(laptopModel);
+            }
+            return laptopModels;
+        }catch (Exception e){
+            System.out.println("" +e);
+            return null;
+        }
+    }
     public List<LaptopModel> queryDB(String sql) {
         try {
             List<LaptopModel> laptopModels = new ArrayList<>();
