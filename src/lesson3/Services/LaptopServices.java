@@ -98,38 +98,32 @@ public class LaptopServices {
             return null;
         }
     }
-    public List<LaptopModel> findBySold(){
+    public void insertLaptop(String name,String url, String maker, String type,String ssd,String card ){
         try {
-
-            String sql = "SELECT * FROM laptop ORDER BY sold DESC LIMIT 1 ";
-            List <LaptopModel> laptopModels = new ArrayList<>();
             Statement statement = getConnections().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while(resultSet.next()) {
-                LaptopModel laptopModel = new LaptopModel(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getString(7),
-                        resultSet.getString(8),
-                        resultSet.getString(9),
-                        resultSet.getFloat(10),
-                        resultSet.getString(11),
-                        resultSet.getString(12),
-                        resultSet.getFloat(13),
-                        resultSet.getInt(14),
-                        resultSet.getTimestamp(15),
-                        resultSet.getTimestamp(16)
-                );
-                laptopModels.add(laptopModel);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM laptop WHERE name = '" + name + "' ");
+            String testName  = null;
+            while(resultSet.next()){
+                testName = resultSet.getString(1);
             }
-            return laptopModels;
+            if(testName != null){
+                System.out.println("Tên sản phẩm đã tồn tại ");
+            }
+            else {
+                String sql = "INSERT IGNORE INTO laptop (name,url,maker,type,ssd,card) VALUES ('" + name + "' , '"+url+"' , '" + maker + "' , '" + type + "' , '" + ssd + "' , '" + card + "')";
+                statement.execute(sql);
+            }
         }catch (Exception e){
+            System.out.println("bi loi " +e);
+        }
+    }
+    public void updateSold(int id_laptop , int sold){
+        try{
+            Statement statement = getConnections().createStatement();
+            String sql ="UPDATE laptop SET sold = (sold + '" +sold + "' ) WHERE id = '" + id_laptop+ "'";
+            statement.execute(sql);
+        }catch (Exception e ){
             System.out.println("" +e);
-            return null;
         }
     }
     public List<LaptopModel> queryDB(String sql) {

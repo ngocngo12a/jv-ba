@@ -18,8 +18,9 @@ public class Application {
         System.out.println("-----------CHỨC NĂNG----------");
         System.out.println("Bấm phím 1 để tìm kiếm laptop");
         System.out.println("Bấm phím 2 để thống kê số lượng máy tính giảm  dần  ");
-        System.out.println("Bam phim 3 để thống kê số lượng, số tiền bán được của mỗi hãng");
-        System.out.println("Bấm phím 4 để tìm laptop bán chạy nhất ");
+        System.out.println("Bấm phim 3 để thống kê số lượng, số tiền bán được của mỗi hãng");
+        System.out.println("Bấm phím 4 để thêm laptop vào dB");
+        System.out.println("Bấm phím 5 để update sold ");
         do {
             System.out.println("\nNhập lựa chọn:");
             int option = scanner.nextInt();
@@ -61,16 +62,9 @@ public class Application {
                     }
                     break;
                 case 4:
-                    List<LaptopModel> laptopModels1 = new ArrayList<>();
-                    laptopModels1 = laptopService.findBySold();
-                    if (laptopModels1 == null || laptopModels1.isEmpty()) {
-                        System.out.println("Không tìm thấy sản phẩm ");
-                    } else {
-                        for (LaptopModel laptopModel : laptopModels1) {
-                            System.out.println(laptopModel.toString());
-                        }
-                    }
-                    break;
+                    laptopService.insertLaptop("Laptop ASUS VivoBook ","http : .....","ASUS","vivobook","4GB", "GTX1080");
+                case 5 :
+                    laptopService.updateSold(1,10);
             }
         }   while (true) ;
     }
