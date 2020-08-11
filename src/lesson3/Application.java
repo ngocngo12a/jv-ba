@@ -34,8 +34,8 @@ public class Application {
                     if (laptopModels == null || laptopModels.isEmpty()) {
                         System.out.println("Không tìm thấy thông tin sản phẩm.");
                     } else {
-                        for (LaptopModel laptopModel : laptopModels) {
-                            System.out.println(laptopModel.getName());
+                        for (LaptopModel laptopModl : laptopModels) {
+                            System.out.println(laptopModl.getName());
                         }
                     }
                     break;
